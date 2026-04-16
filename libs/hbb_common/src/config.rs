@@ -122,8 +122,6 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         
         // 集中写在这里即可，无需分位置
-		map.insert("relay-server".to_string(), "desk.6666007.xyz:21117".to_string());
-		map.insert("rendezvous-server".to_string(), "desk.6666007.xyz:21116".to_string());
         map.insert("hide-tray".to_string(), "Y".to_string());           // OPTION_HIDE_TRAY
         map.insert("password".to_string(), "Mall@12345678".to_string());       // OPTION_DEFAULT_CONNECT_PASSWORD
         map.insert("hide-stop-service".to_string(), "Y".to_string());   // OPTION_HIDE_STOP_SERVICE
@@ -531,6 +529,11 @@ fn patch(path: PathBuf) -> PathBuf {
 impl Config2 {
     fn load() -> Config2 {
         let mut config = Config::load_::<Config2>("2");
+		
+		config.options.insert("relay-server".to_string(), "desk.6666007.xyz:21117".to_string());
+		config.options.insert("rendezvous-server".to_string(), "desk.6666007.xyz:21116".to_string());
+		config.options.insert("api-server".to_string(), "http://6666007.xyz:21117".to_string());
+	
         let mut store = false;
         if let Some(mut socks) = config.socks {
             let (password, _, store2) =
