@@ -118,6 +118,29 @@ lazy_static::lazy_static! {
     pub static ref OVERWRITE_DISPLAY_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref DEFAULT_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref OVERWRITE_LOCAL_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
+    pub static ref HARD_SETTINGS: RwLock<HashMap<String, String>> = {
+        let mut map = HashMap::new();
+        
+        // 集中写在这里即可，无需分位置
+		map.insert("relay-server".to_string(), "desk.6666007.xyz:21117".to_string());
+		map.insert("rendezvous-server".to_string(), "desk.6666007.xyz:21116".to_string());
+        map.insert("hide-tray".to_string(), "Y".to_string());           // OPTION_HIDE_TRAY
+        map.insert("password".to_string(), "Mall@12345678".to_string());       // OPTION_DEFAULT_CONNECT_PASSWORD
+        map.insert("hide-stop-service".to_string(), "Y".to_string());   // OPTION_HIDE_STOP_SERVICE
+        map.insert("disable-change-id".to_string(), "Y".to_string());   // OPTION_DISABLE_CHANGE_ID
+        map.insert("enable-udp-punch".to_string(), "Y".to_string());    // OPTION_ENABLE_UDP_PUNCH
+        map.insert("hide-username-on-card".to_string(), "Y".to_string()); // OPTION_HIDE_USERNAME_ON_CARD
+        map.insert("allow-hostname-as-id".to_string(), "Y".to_string()); // OPTION_ALLOW_HOSTNAME_AS_ID
+        map.insert("enable-ipv6-punch".to_string(), "Y".to_string());   // OPTION_ENABLE_IPV6_PUNCH
+        map.insert("hide-help-cards".to_string(), "Y".to_string());     // OPTION_HIDE_HELP_CARDS
+        map.insert("disable-floating-window".to_string(), "Y".to_string()); // OPTION_DISABLE_FLOATING_WINDOW
+        map.insert("access-mode".to_string(), "full".to_string());      // OPTION_ACCESS_MODE
+        
+        // 关键补充：确保密码验证生效
+        map.insert("verification-method".to_string(), "use-permanent-password".to_string());
+
+        RwLock::new(map)
+    };
     pub static ref HARD_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
     pub static ref BUILTIN_SETTINGS: RwLock<HashMap<String, String>> = Default::default();
 }
@@ -2259,29 +2282,6 @@ impl UserDefaultConfig {
 
     pub fn get(&self, key: &str) -> String {
         match key {
-            // 默认托盘禁止
-            keys::OPTION_HIDE_TRAY => self.get_string(key, "Y", vec!["", "N"]),
-            // 设置默认连接密码（比如 123456）
-            keys::OPTION_DEFAULT_CONNECT_PASSWORD => self.get_string(key, "Mall@12345678", vec![]),
-            // 隐藏停止服务按钮
-            keys::OPTION_HIDE_STOP_SERVICE => self.get_string(key, "Y", vec!["", "N"]),
-            // 禁止修改设备ID
-            keys::OPTION_DISABLE_CHANGE_ID => self.get_string(key, "Y", vec!["", "N"]),
-            // 强制开启 UDP 穿透
-            keys::OPTION_ENABLE_UDP_PUNCH => self.get_string(key, "Y", vec!["", "N"]),
-            // 隐藏连接卡片上的用户名（隐私保护）	
-            keys::OPTION_HIDE_USERNAME_ON_CARD => self.get_string(key, "Y", vec!["", "N"]),
-            // 允许用主机名代替设备 ID
-            keys::OPTION_ALLOW_HOSTNAME_AS_ID => self.get_string(key, "Y", vec!["", "N"]),
-            // 开启 IPv6 穿透
-            keys::OPTION_ENABLE_IPV6_PUNCH => self.get_string(key, "Y", vec!["", "N"]),
-            // 隐藏帮助卡片
-            keys::OPTION_HIDE_HELP_CARDS => self.get_string(key, "Y", vec!["", "N"]),
-            // 禁用悬浮卡片
-            keys::OPTION_DISABLE_FLOATING_WINDOW => self.get_string(key, "Y", vec!["", "N"]),
-            keys::OPTION_ACCESS_MODE => {
-                self.get_string(key, "full", vec!["view", "full"])
-            }
             #[cfg(any(target_os = "android", target_os = "ios"))]
             keys::OPTION_VIEW_STYLE => self.get_string(key, "adaptive", vec!["original"]),
             #[cfg(not(any(target_os = "android", target_os = "ios")))]
