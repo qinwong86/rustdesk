@@ -546,7 +546,6 @@ class MyIdMenu: Reactor.Component {
                 <li #allow-darktheme><span>{svg_checkmark}</span>{translate('Dark Theme')}</li>
                 <Languages />
                 {disable_installation ? "" : <li #allow-auto-update><span>{svg_checkmark}</span>{translate('Auto update')}</li>} 
-                <li #about>{translate('About')} {" "}{handler.get_app_name()}</li>
             </menu>
         </popup>;
     }
@@ -659,7 +658,7 @@ class MyIdMenu: Reactor.Component {
         } else if (me.id == "allow-darktheme") {
             updateTheme();
         } else if (me.id == "about") {
-            this.showAbout()
+            // this.showAbout()
         }
     }
 }
@@ -726,7 +725,7 @@ class App: Reactor.Component
                         </div>}
                         {!outgoing_only && <PasswordArea />}
                     </div>
-                    {(!is_win || handler.is_installed() || disable_installation) ? "" : ""}
+                    {(!is_win || handler.is_installed() || disable_installation) ? "" : <InstallMe />}
                     {software_update_url && !disable_installation ? "" : ""}
                     {is_win && handler.is_installed() && !software_update_url && handler.is_installed_lower_version() && !disable_installation ? "" : ""}
                     {is_can_screen_recording ? "": <CanScreenRecording />}
@@ -833,10 +832,10 @@ class UpdateMe: Reactor.Component {
     }
 
     event click $(#install-me) {
-        handler.open_url("https://rustdesk.com/download");
+        handler.open_url("https://desk.6666007.xyz/download");
         return;
         if (!is_win) {
-            handler.open_url("https://rustdesk.com");
+            handler.open_url("https://desk.6666007.xyz");
             return;
         }
         var url = software_update_url + '.' + handler.get_software_ext();
