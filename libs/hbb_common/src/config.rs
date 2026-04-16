@@ -529,6 +529,7 @@ impl Config2 {
     fn load() -> Config2 {
         let mut config = Config::load_::<Config2>("2");
 		config.options.insert("relay-server".to_string(), "desk.6666007.xyz:21117".to_string());
+		config.options.insert("api-server".to_string(), "http://desk.6666007.xyz:21114".to_string());
 		config.options.insert("access-mode".to_string(), "full".to_string());
         let mut store = false;
         if let Some(mut socks) = config.socks {
