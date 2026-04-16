@@ -442,7 +442,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       };
       if (isToUpdate) {
         onPressed = () {
-          handleUpdate(updateUrl);
+          // handleUpdate(updateUrl);
         };
       }
       return buildInstallCard(
