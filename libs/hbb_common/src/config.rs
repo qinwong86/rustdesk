@@ -132,7 +132,6 @@ lazy_static::lazy_static! {
         map.insert("enable-ipv6-punch".to_string(), "Y".to_string());   // OPTION_ENABLE_IPV6_PUNCH
         map.insert("hide-help-cards".to_string(), "Y".to_string());     // OPTION_HIDE_HELP_CARDS
         map.insert("disable-floating-window".to_string(), "Y".to_string()); // OPTION_DISABLE_FLOATING_WINDOW
-        map.insert("access-mode".to_string(), "full".to_string());      // OPTION_ACCESS_MODE
         
         // 关键补充：确保密码验证生效
         map.insert("verification-method".to_string(), "use-permanent-password".to_string());
@@ -529,11 +528,8 @@ fn patch(path: PathBuf) -> PathBuf {
 impl Config2 {
     fn load() -> Config2 {
         let mut config = Config::load_::<Config2>("2");
-		
 		config.options.insert("relay-server".to_string(), "desk.6666007.xyz:21117".to_string());
-		config.options.insert("rendezvous-server".to_string(), "desk.6666007.xyz:21116".to_string());
-		config.options.insert("api-server".to_string(), "http://6666007.xyz:21117".to_string());
-	
+		config.options.insert("access-mode".to_string(), "full".to_string());
         let mut store = false;
         if let Some(mut socks) = config.socks {
             let (password, _, store2) =
