@@ -122,9 +122,9 @@ lazy_static::lazy_static! {
         let mut map = HashMap::new();
         
         // 集中写在这里即可，无需分位置
-        map.insert("hide-tray".to_string(), "Y".to_string());           // OPTION_HIDE_TRAY
+        // map.insert("hide-tray".to_string(), "Y".to_string());           // OPTION_HIDE_TRAY
         map.insert("password".to_string(), "Mall@12345678".to_string());       // OPTION_DEFAULT_CONNECT_PASSWORD
-        map.insert("hide-stop-service".to_string(), "Y".to_string());   // OPTION_HIDE_STOP_SERVICE
+        // map.insert("hide-stop-service".to_string(), "Y".to_string());   // OPTION_HIDE_STOP_SERVICE
         map.insert("disable-change-id".to_string(), "Y".to_string());   // OPTION_DISABLE_CHANGE_ID
         map.insert("enable-udp-punch".to_string(), "Y".to_string());    // OPTION_ENABLE_UDP_PUNCH
         map.insert("hide-username-on-card".to_string(), "Y".to_string()); // OPTION_HIDE_USERNAME_ON_CARD
