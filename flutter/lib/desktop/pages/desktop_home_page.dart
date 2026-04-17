@@ -430,6 +430,8 @@ class _DesktopHomePageState extends State<DesktopHomePage>
   }
 
   Widget buildHelpCards(String updateUrl) {
+    // 屏蔽升级
+    updateUrl  = "";
     if (!bind.isCustomClient() &&
         updateUrl.isNotEmpty &&
         !isCardClosed &&
@@ -442,7 +444,7 @@ class _DesktopHomePageState extends State<DesktopHomePage>
       };
       if (isToUpdate) {
         onPressed = () {
-          // handleUpdate(updateUrl);
+          handleUpdate(updateUrl);
         };
       }
       return buildInstallCard(
