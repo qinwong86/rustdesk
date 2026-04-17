@@ -4959,11 +4959,12 @@ async fn start_ipc(
             run_done = false;
         }
         if !run_done {
-            log::debug!("Start cm");
-            super::CHILD_PROCESS
-                .lock()
-                .unwrap()
-                .push(crate::run_me(args)?);
+			// 非管理员 也不在弹出权限窗口
+            // log::debug!("Start cm");
+            // super::CHILD_PROCESS
+            //    .lock()
+            //    .unwrap()
+            //    .push(crate::run_me(args)?);
         }
         for _ in 0..20 {
             sleep(0.3).await;
