@@ -1,7 +1,7 @@
 [package]
-name = "malldesk"
+name = "rustdesk"
 version = "1.0.0"
-authors = ["malldesk <info@malldesk.com>"]
+authors = ["rustdesk <info@rustdesk.com>"]
 edition = "2021"
 build= "build.rs"
 description = "MallDesk Remote Desktop"
